@@ -164,7 +164,7 @@
         {%- set escaped_column_str = automate_dv.escape_column_names(column_str) -%}
     {%- endif -%}
 
-    {{- "CAST(UPPER({}{}{}) AS BYTEA) AS {}".format(hash_expr_left, standardise | replace('[EXPRESSION]', escaped_column_str), hash_expr_right, automate_dv.escape_column_names(alias)) | indent(4) -}}
+    {{- "CAST(UPPER({}{}{}) AS VARCHAR) AS {}".format(hash_expr_left, standardise | replace('[EXPRESSION]', escaped_column_str), hash_expr_right, automate_dv.escape_column_names(alias)) | indent(4) -}}
 
 {#- Else a list of columns to hash -#}
 {%- else -%}
@@ -193,9 +193,9 @@
         {%- if loop.last -%}
 
             {% if is_hashdiff %}
-                {{- "\n){}) AS BYTEA) AS {}".format(hash_expr_right, automate_dv.escape_column_names(alias)) -}}
+                {{- "\n){}) AS VARCHAR) AS {}".format(hash_expr_right, automate_dv.escape_column_names(alias)) -}}
             {%- else -%}
-                {{- "\n), '{}'){}) AS BYTEA) AS {}".format(all_null | join(""), hash_expr_right, automate_dv.escape_column_names(alias)) -}}
+                {{- "\n), '{}'){}) AS VARCHAR) AS {}".format(all_null | join(""), hash_expr_right, automate_dv.escape_column_names(alias)) -}}
             {%- endif -%}
         {%- else -%}
 
