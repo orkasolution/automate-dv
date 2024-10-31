@@ -38,7 +38,7 @@ WITH source_data AS (
 
     {%- endif %}
 
-    FROM {{ ref(source_model) }} AS a
+    FROM {{ delta_ref(source_model) }} AS a
 
     WHERE {{ automate_dv.multikey(src_pk, prefix='a', condition='IS NOT NULL') }}
 
