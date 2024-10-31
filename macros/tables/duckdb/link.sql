@@ -32,7 +32,7 @@ row_rank_{{ source_number }} AS (
                PARTITION BY {{ automate_dv.prefix([src_pk], 'rr') }}
                ORDER BY {{ automate_dv.prefix([src_ldts], 'rr') }}
            ) AS row_number
-    FROM {{ ref(src) }} AS rr
+    FROM {{ delta_ref(src) }} AS rr
     {%- if source_model | length == 1 %}
     WHERE {{ automate_dv.multikey(src_pk, prefix='rr', condition='IS NOT NULL') }}
     AND {{ automate_dv.multikey(fk_cols, prefix='rr', condition='IS NOT NULL') }}
