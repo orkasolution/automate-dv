@@ -48,7 +48,7 @@
     {%- set all_source_columns = automate_dv.source_columns(source_relation=source_relation) -%}
 {%- elif source_model is not mapping and source_model is not none -%}
 
-    {%- set source_relation = ref(source_model) -%}
+    {%- set source_relation = delta_ref(source_model) -%}
     {%- set all_source_columns = automate_dv.source_columns(source_relation=source_relation) -%}
 {%- else -%}
 
