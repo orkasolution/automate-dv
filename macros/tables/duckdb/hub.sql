@@ -29,7 +29,7 @@ row_rank_{{ source_number }} AS (
     {%- else %}
     SELECT DISTINCT ON ({{ automate_dv.prefix([src_pk], 'rr') }}) {{ automate_dv.prefix(source_cols, 'rr') }}
     {%- endif %}
-    FROM {{ ref(src) }} AS rr
+    FROM {{ delta_ref(src) }} AS rr
     WHERE {{ automate_dv.multikey(src_pk, prefix='rr', condition='IS NOT NULL') }}
     ORDER BY {{ automate_dv.prefix([src_pk], 'rr') }}, {{ automate_dv.prefix([src_ldts], 'rr') }}
     {%- set ns.last_cte = "row_rank_{}".format(source_number) %}
